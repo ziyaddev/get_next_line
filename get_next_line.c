@@ -43,10 +43,10 @@
 char	*get_next_line(int fd)
 {
 	char			*line;
-	static char		*static_buf;	// Used to store the remaining chars after '\n'
+	static char		*static_buf = "";	// Used to store the remaining chars after '\n'
 	char			*read_buf;		// Used to store the read chars from file descriptor
 	char			*newline_found;
-	char			*preprocess_buf;
+	// char			*preprocess_buf;
 	size_t			len;
 	size_t			i;
 	int				read_status;
@@ -58,8 +58,11 @@ char	*get_next_line(int fd)
 		return (NULL);
 
 	len = 0;
-	static_buf = "";
-	while (!ft_strchr(static_buf, '\n'))
+	// static_buf = "";
+	line = ft_calloc(1, 1);
+	if (!line)
+		return (NULL);
+	while (!ft_strchr(line, '\n'))
 	{
 		/* Set all read_buf bytes to 0 to prevent garbage values */
 		ft_memset(read_buf, '\0', BUFFER_SIZE);
@@ -77,7 +80,8 @@ char	*get_next_line(int fd)
 		{
 			// strdup || substr || strlcpy ||
 			// Calculate lenght until '\n' position & append it to 'len'
-			len += (newline_found - static_buf + 1); // +1 for the found character which is '\n' ----------??
+			len = (newline_found - static_buf + 1); // +1 for the found character which is '\n' ----------??
+			free(line);
 			line = ft_calloc((len + 1), sizeof(char)); // +1 for the null terminating char
 			if(!line)
 			{
@@ -91,40 +95,38 @@ char	*get_next_line(int fd)
 				line[i] = static_buf[i];// copy begining until '\n' included
 				i++;
 			}
+			line[i] = '\0';
 
-			ft_strcpy(preprocess_buf, &static_buf[i]);
-
-			// Join everything after '\n'
-			// i = 0;
-			// newline_found++;
-			// while (newline_found[i])
-			// {
-			// 	static_buf[i] = newline_found[i];
-			// 	i++;
-			// }
+			if (static_buf[i])
+				ft_strcpy(static_buf, &static_buf[i]);
+			else
+				static_buf = "";
 		}
-		else
-		{
-			/* Increment line length */
-			len += ft_strlen(read_buf); // ----------------------------------------------------??
-			preprocess_buf = malloc(sizeof(char) * len + 1);
-			if (!preprocess_buf)
-			{
-				// ft_free_everything(buf_preprocess);
-				return (NULL);
-			}
-			// > transfert 'static_buf' content to 'buf_preprocess'
-			ft_strcpy(preprocess_buf, read_buf);
-			// > free(static_buf)
-			free(static_buf);
-			// > malloc 'static_buf' with new length (ft_strlen(buf_preprocess) + BUFFER_SIZE)
-			static_buf = malloc(ft_strlen(preprocess_buf) + BUFFER_SIZE);
-			// > copy 'buf_preprocess' + 'read_buf' into 'line'
-			ft_strjoin(line, read_buf); // read_buf begining until '\n' included
+		// else
+		// {
+		// 	/* Increment line length */
+		// 	len += ft_strlen(read_buf); // ----------------------------------------------------??
+		// 	preprocess_buf = malloc(sizeof(char) * len + 1);
+		// 	if (!preprocess_buf)
+		// 	{
+		// 		// ft_free_everything(buf_preprocess);
+		// 		return (NULL);
+		// 	}
+		// 	// > transfert 'static_buf' content to 'buf_preprocess'
+		// 	ft_strcpy(preprocess_buf, read_buf);
+		// 	// > free(static_buf)
+		// 	// free(static_buf);
 
-		}
+		// 	// > malloc 'static_buf' with new length (ft_strlen(buf_preprocess) + BUFFER_SIZE)
+		// 	// static_buf = ft_strjoin(static_buf, read_buf);
+		// 	// static_buf = malloc(ft_strlen(preprocess_buf) + BUFFER_SIZE);
 
-		len += BUFFER_SIZE;
+		// 	// > copy 'buf_preprocess' + 'read_buf' into 'line'
+		// 	// ft_strjoin(line, read_buf); // read_buf begining until '\n' included
+
+		// }
+
+		// len += BUFFER_SIZE;
 	}
 
 	// free(read_buf);
@@ -199,10 +201,25 @@ int	main(void)
 
 	printf("len diff : %ld\n", ft_strchr(str_test, 'e') - ft_strchr(str_test, 'T'));
 
-	printf("Get next line function : %s\n", get_next_line(open_testfile_fd));
-	printf("Get next line function : %s\n", get_next_line(open_testfile_fd));
-	printf("Get next line function : %s\n", get_next_line(open_testfile_fd));
-	printf("Get next line function : %s\n", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
+	printf("Get next line function : %s", get_next_line(open_testfile_fd));
 
 	// printf("\nstatic variable test %s\n", ft_static_variable_test());
 	// printf("\nstatic variable test %s\n", ft_static_variable_test());
