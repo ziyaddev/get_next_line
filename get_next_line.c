@@ -63,10 +63,11 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (ptr);
 }
 
-int	ft_read_line()
-{
-	return (0);
-}
+// int	ft_read_line()
+// {
+
+// 	return (0);
+// }
 
 char	*get_next_line(int fd)
 {
@@ -87,7 +88,7 @@ char	*get_next_line(int fd)
 	while (!ft_strchr(line, '\n'))
 	{
 		ft_memset(read_buf, '\0', BUFFER_SIZE);
-		if (!read(fd, read_buf, BUFFER_SIZE))
+		if ((!read(fd, read_buf, BUFFER_SIZE)) && !*static_buf)
 			return (NULL);
 		static_buf = ft_strjoin(static_buf, read_buf);
 		newline_found = ft_strchr(static_buf, '\n');
