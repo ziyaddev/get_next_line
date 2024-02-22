@@ -81,27 +81,28 @@ void	*ft_calloc(size_t nmemb, size_t size)
 }
 
 /* Returns a pointer to a new string which is a duplicate of the string s.  */
-char	*ft_strdup(const char *s)
+char	*ft_strndup(const char *s, size_t n)
 {
 	char	*dup;
-	int		i;
+	size_t	i;
 
-	i = 0;
-	dup = malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (!s)
+		return (NULL);
+	if (n > ft_strlen(s))
+		i = ft_strlen(s);
+	else
+		i = n;
+	dup = malloc(sizeof(char) * i + 1);
 	if (!dup)
 		return (0);
-	while (s[i])
+	i = 0;
+	while (s[i] && (i < n))
 	{
 		dup[i] = s[i];
 		i++;
 	}
 	dup[i] = '\0';
 	return (dup);
-}
-
-void	ft_free_everything(void *ptr)
-{
-	free(ptr);
 }
 
 /* Copies src string, null byte included, to dest.  */
