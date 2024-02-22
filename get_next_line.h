@@ -40,6 +40,6 @@ char	*ft_strndup(const char *s, size_t n);
 
 char	*ft_strcpy(char *dest, const char *src);
 
-void	ft_free_everything(void *ptr);
+// int	ft_read_line();
 
 #endif
