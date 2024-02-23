@@ -40,7 +40,7 @@ LIBFTDIR	=	./libft
 ##                   VARIABLES                   ##
 ###################################################
 
-CFLAGS		=	-Wall -Werror -Wextra -g3 -D BUFFER_SIZE=3
+CFLAGS		=	-Wall -Werror -Wextra -g3 -D BUFFER_SIZE=10
 CC			=	cc
 
 SRC			=	get_next_line.h			\

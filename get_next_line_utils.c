@@ -12,6 +12,31 @@
 
 #include "get_next_line.h"
 
+/* Set N bytes of S to C.  */
+void	*ft_memset(void *s, int c, size_t n)
+{
+	char	*ptr;
+
+	ptr = s;
+	while (n--)
+		*ptr++ = c;
+	return (s);
+}
+
+/* Allocate NMEMB elements of SIZE bytes each, all initialized to 0.  */
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*ptr;
+
+	if (!nmemb || !size || ((nmemb * size) > INT_MAX))
+		return (NULL);
+	ptr = malloc(nmemb * size);
+	if (!ptr)
+		return (NULL);
+	ft_memset(ptr, '\0', (nmemb * size));
+	return (ptr);
+}
+
 /* Calculates the length of the string pointed to by s  */
 size_t	ft_strlen(const char *str)
 {
