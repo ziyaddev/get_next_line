@@ -63,11 +63,11 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (ptr);
 }
 
-// int	ft_read_line()
-// {
+int	ft_read_line()
+{
 
-// 	return (0);
-// }
+	return (0);
+}
 
 char	*get_next_line(int fd)
 {
