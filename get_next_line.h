@@ -43,7 +43,8 @@ char	*ft_strcpy(char *dest, const char *src);
 
 char	*ft_read_line(int fd);
 
-char	*clean_line(char *str);
+char	*ft_clean_line(char *str);
 
+size_t	ft_strlcat(char *dst, const char *src, size_t size);
 
 #endif
