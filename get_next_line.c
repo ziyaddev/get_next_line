@@ -15,18 +15,25 @@
 char	*ft_read_line(int fd)
 {
 	char	*read_buf;
-	int		read_status;
-
+	char	*str;
+	int		read_len;
 
 	read_buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!read_buf)
 		return (NULL);
-	read_status = read(fd, read_buf, BUFFER_SIZE);
-
-	return (read_buf);
+	read_len = 0;
+	while (!ft_strchr(read_buf, '\n') && read_len >= 0)
+	{
+		read_len += read(fd, read_buf, BUFFER_SIZE);
+		free(str);
+		str = malloc(sizeof(char) * (read_len + 1));
+		if (!str)
+			return (NULL);
+	}
+	return (str);
 }
 
-char	*get_line(char *str)
+char	*clean_line(char *str)
 {
 	char *line;
 
@@ -35,12 +42,18 @@ char	*get_line(char *str)
 
 char	*get_next_line(int fd)
 {
-	char	*line;
+	char		*line;
+	static char	*static_buf;
 
-	if ((fd < 0) || (BUFFER_SIZE <= 0) || (read(fd, line, 0) < 0))
-			return (NULL);
+	/* Error checks */
+	if ((fd < 0) || (BUFFER_SIZE <= 0) || (read(fd, &line, 0) < 0))
+		return (NULL);
 
+	/* Store read line until '\n' */
 	line = ft_read_line(fd);
+
+	/* Store everything read after '\n' */
+	static_buf = ft_clean_line();
 
 	return (line);
 }

@@ -41,6 +41,9 @@ char	*ft_strndup(const char *s, size_t n);
 
 char	*ft_strcpy(char *dest, const char *src);
 
-// int	ft_read_line();
+char	*ft_read_line(int fd);
+
+char	*clean_line(char *str);
+
 
 #endif
