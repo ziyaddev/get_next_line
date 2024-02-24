@@ -122,6 +122,30 @@ char	*ft_strcpy(char *dest, const char *src)
 	return (dest);
 }
 
+/* Concatenate src string into dst  */
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
+{
+	size_t	dst_len;
+	size_t	k;
+	size_t	src_len;
+
+	dst_len = 0;
+	k = 0;
+	src_len = ft_strlen(src);
+	if (((!dst) || (!src)) && !size)
+		return (src_len);
+	while (dst[dst_len] && dst_len < size)
+		dst_len++;
+	while ((src[k]) && ((dst_len + k + 1) < size))
+	{
+		dst[dst_len + k] = src[k];
+		k++;
+	}
+	if (dst_len != size)
+		dst[dst_len + k] = '\0';
+	return (dst_len + src_len);
+}
+
 // size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 // {
 // 	char	*copied;
