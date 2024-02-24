@@ -9,6 +9,8 @@ int	main(void)
 	unsigned int	mem_space_len;
 	int				calloc_size;
 	char			*str_test =  "This is a string test !";
+	char			*strjoin;
+	char			*strndup;
 
 	my_str = malloc(sizeof(char) * 10);
 	if (!my_str)
@@ -20,7 +22,10 @@ int	main(void)
 
 	printf("Opened file descriptor : %d\n", open_testfile_fd);
 	printf("\nstrlen : %ld\n", ft_strlen("my str len test"));
-	printf("\nstrjoin : %s\n", ft_strjoin("my str len test\\", "|/ 2nd part"));
+
+	strjoin = ft_strjoin("my str len test\\", "|/ 2nd part");
+	printf("\nstrjoin : %s\n", strjoin);
+
 	printf("\nstrchr : %s\n", ft_strchr("salam akhi", 'k'));
 
 	mem_space_len = 6;
@@ -40,12 +45,13 @@ int	main(void)
 	printf("ptr 'T' : %p\n", ft_strchr(str_test, 'T'));
 	printf("ptr 'e' : %p\n", ft_strchr(str_test, 'e'));
 
-	printf("\nstrndup test : %s\n\n", ft_strndup("salamouaalaikoum!", 44));
+	strndup = ft_strndup("salamouaalaikoum!", 44);
+	printf("\nstrndup test : %s\n\n", strndup);
 
-	printf("ft read line : %s\n", ft_read_line(open_testfile_fd));
+	// printf("ft read line : %s\n", ft_read_line(open_testfile_fd));
 	
-	// printf("%s", get_next_line(open_testfile_fd));
-	// printf("%s", get_next_line(open_testfile_fd));
+	printf("\n1 - %s", get_next_line(open_testfile_fd));
+	printf("\n2 - %s", get_next_line(open_testfile_fd));
 	// printf("%s", get_next_line(open_testfile_fd));
 	// printf("%s", get_next_line(open_testfile_fd));
 	// printf("%s", get_next_line(open_testfile_fd));
@@ -81,6 +87,9 @@ int	main(void)
 
 	free(mem_space);
 	free(calloc_mem_space);
+	free(my_str);
+	free(strjoin);
+	free(strndup);
 
 	close(open_testfile_fd);
 	return (0);
