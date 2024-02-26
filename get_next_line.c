@@ -28,7 +28,7 @@ char	*ft_read_line(int fd)
 		read_len += read(fd, read_buf, BUFFER_SIZE);
 		str = malloc(sizeof(char) * (read_len + 1));
 		if (!str)
-			return (NULL);
+			return (NULL); // return (free(someleak), NULL);
 		str2 = ft_strndup(str, ft_strlen(str));
 		free(str);
 		str = ft_strjoin(str2, read_buf);
@@ -38,7 +38,7 @@ char	*ft_read_line(int fd)
 	return (str);
 }
 
-char	*ft_clean_line(char *line)
+char	*ft_clean_line(char *line, size_t *line_len)
 {
 	char	*newline_found;
 	char	*buf;
@@ -47,6 +47,7 @@ char	*ft_clean_line(char *line)
 	buf = malloc(sizeof(char) * ((newline_found - line + 1) + 1));
 	if (!buf)
 		return (NULL);
+	*line_len += newline_found - line + 1;
 	newline_found++;
 	return (newline_found);
 }
@@ -54,18 +55,26 @@ char	*ft_clean_line(char *line)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*static_buf;
+	static char	*static_buf = "";
+	size_t		line_len;
+	char		*line_buf;
 
 	/* Error checks */
 	if ((fd < 0) || (BUFFER_SIZE <= 0) || (read(fd, &line, 0) < 0))
 		return (NULL);
 
 	/* Store read line until '\n' found */
-	line = ft_read_line(fd);
-	if (ft_strchr(line, '\n'))
+	line_buf = ft_read_line(fd);
+	if (ft_strchr(line_buf, '\n'))
 	{
-		static_buf = ft_strjoin(static_buf, ft_clean_line(line));
+		line_len = ft_strlen(static_buf);
+		static_buf = ft_strjoin(static_buf, ft_clean_line(line_buf, &line_len));
 		printf("\nstatic buf : %s\n", static_buf);
+		line = malloc(sizeof(char) * (line_len + 1));
+		if (!line)
+			return (NULL);
+		line = ft_strndup(line_buf, line_len);
+		free(line_buf);
 	}
 	/*  */
 	/* Store everything read after '\n' */

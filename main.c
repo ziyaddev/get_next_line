@@ -11,6 +11,7 @@ int	main(void)
 	char			*str_test =  "This is a string test !";
 	char			*strjoin;
 	char			*strndup;
+	int				line_nb;
 
 	my_str = malloc(sizeof(char) * 10);
 	if (!my_str)
@@ -49,9 +50,11 @@ int	main(void)
 	printf("\nstrndup test : %s\n\n", strndup);
 
 	// printf("ft read line : %s\n", ft_read_line(open_testfile_fd));
-	
-	printf("\n1 - %s", get_next_line(open_testfile_fd));
-	printf("\n2 - %s", get_next_line(open_testfile_fd));
+
+	line_nb = 0;
+
+	printf("\n[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("\n[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
 	// printf("%s", get_next_line(open_testfile_fd));
 	// printf("%s", get_next_line(open_testfile_fd));
 	// printf("%s", get_next_line(open_testfile_fd));
