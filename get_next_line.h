@@ -41,9 +41,9 @@ char	*ft_strndup(const char *s, size_t n);
 
 char	*ft_strcpy(char *dest, const char *src);
 
-char	*ft_read_line(int fd);
+char	*ft_read_line(char *line);
 
-char	*ft_clean_line(char *line, size_t *line_len);
+char	*ft_clean_next_line(char *line);
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 
