@@ -71,8 +71,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 /* Returns a pointer to the first occurrence of C in S.  */
 char	*ft_strchr(const char *s, int c)
 {
-	if (!*s)
+	if (!s)
 		return (NULL);
+	if (c == '\0')
+		return ((char *)&s[ft_strlen(s)]);
 	while (*s)
 	{
 		if (*s == (char)c)
@@ -94,9 +96,9 @@ char	*ft_strndup(const char *s, size_t n)
 		i = ft_strlen(s);
 	else
 		i = n;
-	dup = malloc(sizeof(char) * i + 1);
+	dup = ft_calloc((i + 1), sizeof(char));
 	if (!dup)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (s[i] && (i < n))
 	{
@@ -144,6 +146,19 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	if (dst_len != size)
 		dst[dst_len + k] = '\0';
 	return (dst_len + src_len);
+}
+
+void	ft_transform_newline(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			str[i] = '*';
+		i++;
+	}
 }
 
 // size_t	ft_strlcpy(char *dst, const char *src, size_t size)
