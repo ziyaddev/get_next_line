@@ -24,22 +24,28 @@ size_t	ft_strlen(const char *str)
 }
 
 /* Allocates and returns concatenation of ’s1’ and ’s2’ as string.  */
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strnjoin(char *s1, char *s2, size_t n)
 {
 	char	*joined;
-	int		i;
+	size_t	s1_len;
+	size_t	s2_len;
 
 	if (!s1 || !s2)
 		return (NULL);
-	joined = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	s1_len = ft_strlen(s1);
+	if (n)
+		s2_len = n;
+	else
+		s2_len = ft_strlen(s2);
+	joined = malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (!joined)
-		return (NULL);
-	i = 0;
-	while (*s1)
-		joined[i++] = *s1++;
-	while (*s2)
-		joined[i++] = *s2++;
-	joined[i] = 0;
+		return (free(s1), NULL);
+	joined[s1_len + s2_len] = '\0';
+	while (s2_len--)
+		joined[s1_len + s2_len] = s2[s2_len];
+	while (s1_len--)
+		joined[s1_len] = s1[s1_len];
+	free(s1);
 	return (joined);
 }
 
@@ -94,6 +100,23 @@ char	*ft_strcpy(char *dest, const char *src)
 		i++;
 	}
 	dest[i] = '\0';
+	return (dest);
+}
+
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	size_t	i;
+
+	i = -1;
+	if (!dest && !src)
+		return (NULL);
+	while (++i < BUFFER_SIZE)
+	{
+		if (n && i < BUFFER_SIZE - n)
+			((char *)dest)[i] = ((char *)src)[i];
+		else
+			((char *)dest)[i] = '\0';
+	}
 	return (dest);
 }
 
