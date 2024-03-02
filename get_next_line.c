@@ -39,9 +39,9 @@ char	*ft_clean_next_line(char *line)
 	i = 0;
 	j = 0;
 	newline_found = ft_strchr(line, '\n');
+	if (!newline_found)
+		return (NULL);
 	newline_found++;
-	// if (newline_found[j] == '\0')
-		// return (NULL);
 	while (newline_found[j])
 		j++;
 	buf = ft_calloc((j + 1), sizeof(char));
@@ -67,7 +67,6 @@ char	*get_next_line(int fd)
 	/* Error checks */
 	if ((fd < 0) || (BUFFER_SIZE <= 0) || (read(fd, &line, 0) < 0))
 		return (NULL);
-
 	line_buf = ft_calloc(BUFFER_SIZE, sizeof(char));
 	if (!line_buf)
 		return (NULL);
@@ -77,12 +76,10 @@ char	*get_next_line(int fd)
 		read_status = read(fd, line_buf, BUFFER_SIZE);
 		if (read_status == -1)
 			return (free(line_buf), NULL);
-
 		static_buf = ft_strjoin(static_buf, line_buf);
 	}
 	free(line_buf);
 	line_buf = ft_read_line(static_buf);
 	static_buf = ft_clean_next_line(static_buf);
-
 	return (line_buf);
 }
