@@ -40,6 +40,8 @@ char	*ft_strndup(const char *s, size_t n);
 
 char	*ft_strcpy(char *dest, const char *src);
 
+int		ft_count_until_newline(char *str);
+
 // int	ft_read_line();
 
 #endif
