@@ -80,7 +80,7 @@ int	ft_count_until_newline(char *str)
 
 int	ft_read_line(int fd, char *line)
 {
-	if (line[0] != '0')
+	if (line[0] != '\0')
 		return (1);
 	if (read(fd, line, BUFFER_SIZE) > 0)
 		return (1);
