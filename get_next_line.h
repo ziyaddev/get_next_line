@@ -30,16 +30,6 @@ size_t	ft_strlen(const char *str);
 
 char	*ft_strnjoin(char *s1, char *s2, size_t n);
 
-char	*ft_strchr(const char *s, int c);
-
-void	*ft_memset(void *s, int c, size_t n);
-
-void	*ft_calloc(size_t nmemb, size_t size);
-
-char	*ft_strndup(const char *s, size_t n);
-
-char	*ft_strcpy(char *dest, const char *src);
-
 int		ft_count_until_newline(char *str);
 
 void	*ft_memmove(void *dest, const void *src, size_t n);
