@@ -30,10 +30,12 @@ size_t	ft_strlen(const char *str);
 
 char	*ft_strnjoin(char *s1, char *s2, size_t n);
 
-int		ft_count_until_newline(char *str);
+// int		ft_count_until_newline(char *str);
 
 void	*ft_memmove(void *dest, const void *src, size_t n);
 
 int		ft_read_line(int fd, char *line);
+
+char	*ft_strchr(const char *s, int c);
 
 #endif

@@ -12,43 +12,6 @@
 
 #include "get_next_line.h"
 
-/* Calculates the length of the string pointed to by s  */
-size_t	ft_strlen(const char *str)
-{
-	int	size;
-
-	size = 0;
-	if (!str)
-		return (0);
-	while (str[size])
-		size++;
-	return (size);
-}
-
-/* Allocates and returns concatenation of ’s1’ and ’s2’ as string.  */
-char	*ft_strnjoin(char *s1, char *s2, size_t n)
-{
-	char	*joined;
-	size_t	s1_len;
-	size_t	s2_len;
-
-	s1_len = ft_strlen(s1);
-	if (n)
-		s2_len = n;
-	else
-		s2_len = ft_strlen(s2);
-	joined = malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!joined)
-		return (free(s1), NULL);
-	joined[s1_len + s2_len] = '\0';
-	while (s2_len--)
-		joined[s1_len + s2_len] = s2[s2_len];
-	while (s1_len--)
-		joined[s1_len] = s1[s1_len];
-	free(s1);
-	return (joined);
-}
-
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
 	size_t	i;
@@ -65,3 +28,46 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	}
 	return (dest);
 }
+
+// int	ft_count_until_newline(char *str)
+// {
+// 	int	i;
+
+// 	i = -1;
+// 	if (!str)
+// 		return (0);
+// 	while (str[++i])
+// 	{
+// 		if (str[i] == '\n')
+// 			return (i + 1);
+// 	}
+// 	return (0);
+// }
+
+// int	ft_read_line(int fd, char *line)
+// {
+// 	if (line[0] != '\0')
+// 		return (1);
+// 	if (read(fd, line, BUFFER_SIZE) > 0)
+// 		return (1);
+// 	return (0);
+// }
+
+// char	*get_next_line(int fd)
+// {
+// 	char		*line;
+// 	static char	static_buf[BUFFER_SIZE];
+// 	int			newline_found;
+
+// 	line = NULL;
+// 	while ((!ft_count_until_newline(line))
+// 		&& ft_read_line(fd, (char *)static_buf) > 0)
+// 	{
+// 		newline_found = ft_count_until_newline(static_buf);
+// 		line = ft_strnjoin(line, static_buf, newline_found);
+// 		if (!line)
+// 			return (NULL);
+// 		ft_memmove(static_buf, &static_buf[newline_found], newline_found);
+// 	}
+// 	return (line);
+// }
