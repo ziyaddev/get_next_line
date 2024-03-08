@@ -6,6 +6,13 @@ l
 12345678
 slnvodsn
 .cn
+
+1K0 614 517 T
+1K0 614 517 M
+1K0 614 517 AE
+PR : 1AT + UG0 + 7K0
+>> 25-05-2008
+
 dsaovd
 dvoa
 vsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviiudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapvsoivoudshljdsabviudbvdabvapv
@@ -28,14 +35,14 @@ tomatoe
 
 c
 
-Prend un "file descriptor" en paramètre
+La fonction prend un "file descriptor" en paramètre
 Le FD peut etre un fichier ou bien l'entrée standard
 
 La fonction doit retourner une ligne à chaque appel,
 S'il n'y a plus rien a lire ou qu'une erreur survient, la fonction doit retourner NULL
 
 Le texte présent dans le FD doit etre traité comme suit :
-- Lire "BUFFER_SIZE" caractères
+- Lire "BUFFER_SIZE" caractères et le placer dans un buffer
 - Placer ce qui a été lu dans une réserve de type "static"
 
 Tant qu'il n'y a pas de '\n' dans la réserve :
