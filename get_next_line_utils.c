@@ -29,6 +29,31 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
+char	*ft_strndup(const char *s, size_t n)
+{
+	char	*dup;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	if (n > ft_strlen(s))
+		i = ft_strlen(s);
+	else
+		i = n;
+	dup = malloc(sizeof(char) * i + 1);
+	if (!dup)
+		return (0);
+	i = 0;
+	while (s[i] && (i < n))
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}
+
+
 // int	ft_count_until_newline(char *str)
 // {
 // 	int	i;
