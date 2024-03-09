@@ -91,6 +91,15 @@ char	*ft_read_line(int fd, int *read_status)
 	return (read_buf);
 }
 
+char	*ft_process(char *static_buf, char *line)
+{
+	char	*newline_found;
+
+	newline_found = ft_strchr(static_buf, '\n');
+	line = ft_strndup(static_buf, (newline_found - static_buf + 1));
+	return (line);
+}
+
 char	*get_next_line(int fd)
 {
 	char		*line;
@@ -99,21 +108,25 @@ char	*get_next_line(int fd)
 	char		*newline_found;
 	int			read_status;
 
+	line = NULL;
+	newline_found = ft_strchr(static_buf, '\n');
+	if (ft_strchr(static_buf, '\n'))
+	{
+		line = ft_process(static_buf, line);
+		static_buf = ft_strndup((newline_found + 1), ft_strlen(newline_found + 1));
+		return (line);
+	}
 	while (!ft_strchr(static_buf, '\n'))
 	{
 		read_buf = ft_read_line(fd, &read_status);
 		static_buf = (ft_strnjoin(static_buf, read_buf, BUFFER_SIZE));
 		free(read_buf);
-
 		newline_found = ft_strchr(static_buf, '\n');
 		if (!read_status)
 			return (NULL);
 		else if (newline_found)
 		{
-			line = ft_strndup(static_buf, (newline_found - static_buf + 1));
-			// line = malloc((1 + (newline_found - static_buf) * sizeof(char)));
-			// if (!line)
-			// 	return (NULL);
+			line = ft_process(static_buf, line);
 			static_buf = ft_strndup((newline_found + 1), ft_strlen(newline_found + 1));
 			return (line);
 		}
@@ -169,7 +182,39 @@ int	main(void)
 	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
 	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
 	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
 
+	printf("\nend of main\n");
 	close(open_testfile_fd);
 	return (0);
 }
