@@ -40,5 +40,5 @@ char	*ft_strchr(const char *s, int c);
 
 char	*ft_strndup(const char *s, size_t n);
 
-char	*ft_process(char *static_buf, char *line);
+char	*ft_process(char *static_buf);
 #endif

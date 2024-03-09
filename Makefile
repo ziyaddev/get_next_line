@@ -43,8 +43,7 @@ LIBFTDIR	=	./libft
 CFLAGS		=	-Wall -Werror -Wextra -g3 -D BUFFER_SIZE=10
 CC			=	cc
 
-SRC			=	get_next_line.h			\
-				get_next_line_utils.c	\
+SRC			=	get_next_line_utils.c	\
 				get_next_line.c
 
 OBJ			=	$(SRC:.c=.o)

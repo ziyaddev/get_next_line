@@ -44,6 +44,8 @@ char	*ft_strchr(const char *s, int c)
 {
 	char	*str_ptr;
 
+	if (!s)
+		return (NULL);
 	str_ptr = (char *)s;
 	while (*str_ptr)
 	{
@@ -63,6 +65,8 @@ char	*ft_strnjoin(char *s1, char *s2, size_t n)
 	size_t	s1_len;
 	size_t	s2_len;
 
+	if (!s1)
+		return (ft_strndup(s2, ft_strlen(s2)));
 	s1_len = ft_strlen(s1);
 	if (n)
 		s2_len = n;
@@ -76,7 +80,7 @@ char	*ft_strnjoin(char *s1, char *s2, size_t n)
 		joined[s1_len + s2_len] = s2[s2_len];
 	while (s1_len--)
 		joined[s1_len] = s1[s1_len];
-	// free(s1);
+	//free(s1);
 	return (joined);
 }
 
@@ -91,9 +95,10 @@ char	*ft_read_line(int fd, int *read_status)
 	return (read_buf);
 }
 
-char	*ft_process(char *static_buf, char *line)
+char	*ft_process(char *static_buf)
 {
 	char	*newline_found;
+	char *line;
 
 	newline_found = ft_strchr(static_buf, '\n');
 	line = ft_strndup(static_buf, (newline_found - static_buf + 1));
@@ -104,7 +109,7 @@ char	*get_next_line(int fd)
 {
 	char		*line;
 	char		*read_buf;
-	static char	*static_buf = "";
+	static char	*static_buf;
 	char		*newline_found;
 	int			read_status;
 
@@ -112,7 +117,7 @@ char	*get_next_line(int fd)
 	newline_found = ft_strchr(static_buf, '\n');
 	if (ft_strchr(static_buf, '\n'))
 	{
-		line = ft_process(static_buf, line);
+		line = ft_process(static_buf);
 		static_buf = ft_strndup((newline_found + 1), ft_strlen(newline_found + 1));
 		return (line);
 	}
@@ -126,7 +131,7 @@ char	*get_next_line(int fd)
 			return (NULL);
 		else if (newline_found)
 		{
-			line = ft_process(static_buf, line);
+			line = ft_process(static_buf);
 			static_buf = ft_strndup((newline_found + 1), ft_strlen(newline_found + 1));
 			return (line);
 		}
@@ -150,71 +155,77 @@ int	main(void)
 	printf("\nnull address : %p\n\n", &str_test[23]);
 
 	line_nb = 0;
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
-	printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+	char *str = get_next_line(open_testfile_fd);
+	while (str)
+	{
+		printf("[%d] - %s", ++line_nb, str);
+		free(str);
+		str = get_next_line(open_testfile_fd);
+	}
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
+		// printf("[%d] - %s", ++line_nb, get_next_line(open_testfile_fd));
 
-	printf("\nend of main\n");
+		printf("\nend of main\n");
 	close(open_testfile_fd);
 	return (0);
 }
